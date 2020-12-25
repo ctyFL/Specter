@@ -10,3 +10,8 @@
 	3.划分系统模块
 	
 	4.创建实体
+
+
+**03buildSSMProjectStructure**
+
+	5.搭建SSM项目结构
