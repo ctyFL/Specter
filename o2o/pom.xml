@@ -138,6 +138,34 @@
 		<version>3.2.2</version>
 	</dependency>
 	
+	<!-- 数据库交互相关jar包 -->
+	<!-- DAO: MyBatis -->
+	<dependency>
+		<groupId>org.mybatis</groupId>
+		<artifactId>mybatis</artifactId>
+		<version>3.5.1</version>
+	</dependency>
+	
+	<dependency>
+		<groupId>org.mybatis</groupId>
+		<artifactId>mybatis-spring</artifactId>
+		<version>2.0.1</version>
+	</dependency>
+	
+	<!-- 数据库JDBC -->
+	<dependency>
+		<groupId>mysql</groupId>
+		<artifactId>mysql-connector-java</artifactId>
+		<version>8.0.16</version>
+	</dependency>
+	
+	<!-- 连接池 -->
+	<dependency>
+		<groupId>com.mchange</groupId>
+		<artifactId>c3p0</artifactId>
+		<version>0.9.5.4</version>
+	</dependency>
+	
   </dependencies>
   
 </project>
