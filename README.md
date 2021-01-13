@@ -9,7 +9,7 @@
 
 	3.划分系统模块
 	
-	4.创建实体
+	4.创建实体、创建数据库相应表
 
 
 **03buildSSMProjectStructure**
@@ -18,6 +18,7 @@
 	
 	6.完善项目配置pom.xml：Spring依赖、数据库交互相关、其他必要工具类依赖
 	
+  
 **04updateSSMconfiguration**
 
 	7.创建jdbc.properties
