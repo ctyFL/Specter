@@ -9,7 +9,7 @@
 
 	3.划分系统模块
 	
-	4.创建实体
+	4.创建实体、创建数据库相应表
 
 
 **03buildSSMProjectStructure**
