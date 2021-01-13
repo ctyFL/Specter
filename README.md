@@ -32,3 +32,14 @@
 	11.创建Spring相关配置：spring-web.xml
 	
 	12.web.xml中整合Spring相关配置
+	
+	
+**05buildDaoInterface**
+
+	13.编写AreaDao接口：com.ctyFL.o2o.dao.AreaDao.java
+	
+	14.编写mapper.xml：src/main/resources/mapper/AreaDao.xml
+	
+	15.编写单元测试：src/test/java：
+			com.ctyFL.o2o.BaseTest.java
+			com.ctyFL.o2o.dao.AreaDaoTest.java
