@@ -43,3 +43,14 @@
 	15.编写单元测试：src/test/java：
 			com.ctyFL.o2o.BaseTest.java
 			com.ctyFL.o2o.dao.AreaDaoTest.java
+			
+			
+**05buildDaoInterface**
+
+	16.编写AreaService接口：com.ctyFL.o2o.services.AreaService.java
+	
+	17.编写AreaService接口的实现类：com.ctyFL.o2o.services.impl.AreaServiceImpl.java
+	
+	18.BaseTest.java添加读取spring-service.xml配置：@ContextConfiguration({"classpath:spring/spring-dao.xml", "classpath:spring/spring-service.xml"})
+	
+	19.编写单元测试：src/test/java：com.ctyFL.o2o.services.AreaServiceTest.java
