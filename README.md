@@ -54,3 +54,8 @@
 	18.BaseTest.java添加读取spring-service.xml配置：@ContextConfiguration({"classpath:spring/spring-dao.xml", "classpath:spring/spring-service.xml"})
 	
 	19.编写单元测试：src/test/java：com.ctyFL.o2o.services.AreaServiceTest.java
+
+
+**07buildController**
+
+	20.编写AreaController接口：com.ctyFL.o2o.controller.superadmin.AreaController.java
