@@ -2,7 +2,7 @@
 
 	1.创建maven项目
 
-	2.配置本地maven环境，使用本地maven仓库
+	2.配置本地maven环境，使用本地maven仓库，setting.xml中配置阿里云镜像
 
 
 **02SystemModuleDivisionAndCreateEntity**
