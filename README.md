@@ -45,7 +45,7 @@
 			com.ctyFL.o2o.dao.AreaDaoTest.java
 			
 			
-**05buildDaoInterface**
+**06buildServices**
 
 	16.编写AreaService接口：com.ctyFL.o2o.services.AreaService.java
 	
