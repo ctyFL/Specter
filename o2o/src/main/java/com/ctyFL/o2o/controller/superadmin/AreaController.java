@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +22,8 @@ import com.ctyFL.o2o.services.AreaService;
 @RequestMapping("/superadmin")
 public class AreaController {
 
+	Logger logger = LoggerFactory.getLogger(AreaController.class);
+	
 	/**
 	 * 因为AreaServiceImpl.java中使用了@Sercvice注解，告诉了springIOC需要被托管
 	 * 所以这里使用@Autowired会将AreaServiceImpl自动注入到AreaService接口中
@@ -42,6 +46,8 @@ public class AreaController {
 	@RequestMapping(value = "/listarea", method = RequestMethod.GET)
 	@ResponseBody
 	private Map<String, Object> listArea() {
+		logger.info("=====start=====");
+		long startTime = System.currentTimeMillis();
 		Map<String, Object> modelMap = new HashMap<String, Object>();
 		List<Area> list = new ArrayList<Area>();
 		try {
@@ -53,6 +59,10 @@ public class AreaController {
 			modelMap.put("success", false);
 			modelMap.put("errMsg", e.toString());
 		}
+		long endTime = System.currentTimeMillis();
+		logger.error("test error!");
+		logger.debug("costTime：[{}ms]", endTime - startTime);
+		logger.info("=====end=====");
 		return modelMap;
 	}
 }
