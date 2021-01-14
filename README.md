@@ -59,3 +59,8 @@
 **07buildController**
 
 	20.编写AreaController接口：com.ctyFL.o2o.controller.superadmin.AreaController.java
+	
+	
+**08uselogback**
+
+	21.编写logback.xml配置文件：src/main/resources：logback.xml
