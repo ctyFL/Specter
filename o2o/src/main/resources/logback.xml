@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- scan=true:配置文件发生改变时，会重新去加载
+	 scanPeriod：设置监测配置文件是否有修改的时间间隔，默认单位是毫秒
+	 			默认的时间间隔是每分钟，就是每分钟会去扫描配置文件是否有发生变化
+	 			若有变化，便会去重新加载配置，就不需要我们每做一次配置就要重启服务器了
+	 debug：若设置为true，则会打印出logback内部的日志信息 -->
+<configuration scan="true" scanPeriod="60 seconds" debug="false">
+
+	<!-- property：定义参数常量，即全局变量 -->
+	
+	<!-- logback的日志级别从小到大有：TRACE<DEBUG<INFO<WARN<ERROR -->
+	<!-- logger.trace("msg")、logger.debug("msg")... -->
+	<!-- 例如：若定义日志级别为info，则小于info的日志则不会在log里显示，而是显示info及以上级别的日志 -->
+	<property name="log.level" value="debug"/>
+	<!-- 日志文件最大保留多长时间：保留30天 -->
+	<property name="log.maxHistory" value="30"/>
+	<!-- 日志文件存储的根路径，catalina.base：Tomcat实例的根目录 -->
+	<property name="log.filePath" value="${catalina.base}/logs/webapps"/>
+	<!-- 日志展现的格式：年-月-日 小时:分钟:秒.毫秒 + 属于哪个线程 + 属于哪个级别(-5：缩进5) + 相关的日志信息(哪个类-日志信息) 换行符-->
+	<property name="log.pattern" value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n"/>
+
+	
+	<!-- appender：用来指定输出介质是什么，将日志输出到哪个地方 -->
+	
+	<!-- 媒介1——eclipse控制台：consoleAppender：即eclipse的Console -->
+	<appender name="consoleAppender" class="ch.qos.logback.core.ConsoleAppender">
+		<!-- encoder：负责将事件转换成字符串 + 负责将日志输出到文件中 -->
+		<encoder>
+			<!-- pattern：定义日志输出的格式：${log.pattern}：即上面参数常量定义的日志输出格式 -->
+			<pattern>${log.pattern}</pattern>
+		</encoder>
+	</appender>
+	
+	<!-- 媒介2——DEBUG：debugAppender：RollingFileAppender——文件会随着size的增大会滚动出新的日志文件来 -->
+	<appender name="debugAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<!-- file：文件路径：${log.filePath}：即上面参数常量定义的日志文件存储的根路径 -->
+		<file>${log.filePath}/debug.log</file>
+		<!-- 滚动策略：TimeBasedRollingPolicy——基于时间 -->
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!-- 文件名称格式 -->
+			<fileNamePattern>${log.filePath}/debug/debug.%d{yyyy-MM-dd}.log.gz</fileNamePattern>
+			<!-- 日志文件最大保留多长时间：${log.maxHistory}：即上面参数常量定义的最长保留时间，保留30天-->
+			<maxHistory>${log.maxHistory}</maxHistory>
+		</rollingPolicy>
+		<!-- encoder：负责将事件转换成字符串 + 负责将日志输出到文件中 -->
+		<encoder>
+			<!-- 由于debug日志只记录debug级别的日志，因此加入过滤器filter，符合则接受ACCEPT，不符合则否定DENY -->
+			<filter class="ch.qos.logback.classic.filter.LevelFilter">
+				<level>DEBUG</level>
+				<onMatch>ACCEPT</onMatch>
+				<onMismatch>DENY</onMismatch>
+			</filter>
+		</encoder>
+	</appender>
+	
+	<!-- 媒介3——INFO：infoAppender：RollingFileAppender——文件会随着size的增大会滚动出新的日志文件来 -->
+	<appender name="infoAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<!-- file：文件路径：${log.filePath}：即上面参数常量定义的日志文件存储的根路径 -->
+		<file>${log.filePath}/info.log</file>
+		<!-- 滚动策略：TimeBasedRollingPolicy——基于时间 -->
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!-- 文件名称格式 -->
+			<fileNamePattern>${log.filePath}/info/info.%d{yyyy-MM-dd}.log.gz</fileNamePattern>
+			<!-- 日志文件最大保留多长时间：${log.maxHistory}：即上面参数常量定义的最长保留时间，保留30天-->
+			<maxHistory>${log.maxHistory}</maxHistory>
+		</rollingPolicy>
+		<!-- encoder：负责将事件转换成字符串 + 负责将日志输出到文件中 -->
+		<encoder>
+			<!-- 由于info日志只记录info级别的日志，因此加入过滤器filter，符合则接受ACCEPT，不符合则否定DENY -->
+			<filter class="ch.qos.logback.classic.filter.LevelFilter">
+				<level>INFO</level>
+				<onMatch>ACCEPT</onMatch>
+				<onMismatch>DENY</onMismatch>
+			</filter>
+		</encoder>
+	</appender>
+	
+	<!-- 媒介4——ERROR：errorAppender：RollingFileAppender——文件会随着size的增大会滚动出新的日志文件来 -->
+	<appender name="errorAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<!-- file：文件路径：${log.filePath}：即上面参数常量定义的日志文件存储的根路径 -->
+		<file>${log.filePath}/error.log</file>
+		<!-- 滚动策略：TimeBasedRollingPolicy——基于时间 -->
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!-- 文件名称格式 -->
+			<fileNamePattern>${log.filePath}/error/error.%d{yyyy-MM-dd}.log.gz</fileNamePattern>
+			<!-- 日志文件最大保留多长时间：${log.maxHistory}：即上面参数常量定义的最长保留时间，保留30天-->
+			<maxHistory>${log.maxHistory}</maxHistory>
+		</rollingPolicy>
+		<!-- encoder：负责将事件转换成字符串 + 负责将日志输出到文件中 -->
+		<encoder>
+			<!-- 由于error日志只记录error级别的日志，因此加入过滤器filter，符合则接受ACCEPT，不符合则否定DENY -->
+			<filter class="ch.qos.logback.classic.filter.LevelFilter">
+				<level>ERROR</level>
+				<onMatch>ACCEPT</onMatch>
+				<onMismatch>DENY</onMismatch>
+			</filter>
+		</encoder>
+	</appender>
+	
+	
+	<!-- logger：用于存放日志对象 -->
+	<!-- name：指定logback需要管住哪个package下的信息
+		 level：指定记录范围，只记录哪个级别及以上的信息：${log.level}即上面参数常量定义的日志级别
+		 additivity=true：则会将父类root中绑定的appender（这里即consoleAppender）也绑定到这个logger里来
+		 				 则会将这个logger定义的日志级别${log.level}符合的日志也输出到父类root绑定的appender（这里即consoleAppender）
+		 				 即：参数常量定义的debug及以上的日志信息也会输出到eclipse控制台 -->
+	<logger name="com.ctyFL.o2o" level="${log.level}" additivity="true">
+		<!-- 绑定appender -->
+		<appender-ref ref="debugAppender"/>
+		<appender-ref ref="infoAppender"/>
+		<appender-ref ref="errorAppender"/>
+	</logger>
+	
+	<!-- 特殊的logger——根logger：只有一个属性level，若参数常量（全局变量）中没有指定日志级别，则会默认继承这里的level：这里即表示只记录info及以上的日志信息 -->
+	<root level="info">
+		<!-- 绑定appender -->
+		<!-- 只要和root相关的信息都会打印到eclipse控制台 -->
+		<appender-ref ref="consoleAppender"/>
+	</root>
+	
+	<!-- 注意：业务中，一个类只能对应一个logger，日志信息要么就是往logger里去写，要么就是在root里输出 -->
+</configuration>
