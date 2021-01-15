@@ -3,6 +3,7 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ctyFL.o2o.dao.ShopDao">
+	<!-- insert：插入 -->
 	<!-- useGeneratedKeys=true：使用jdbc的getGeneratedKeys获取数据库自增主键值
 		 一旦数据添加成功，就会通过jdbc来获取主键的值，插入到传入的实体类中
 		 keyColumn：数据库对应的主键
@@ -16,4 +17,30 @@
 		(#{Name},#{Description},#{Address},#{Phone},#{Img},#{Priority},#{DataCreationDate},
 		#{LastModifyTime},#{Status},#{Advice},#{Area_ID},#{PersonInfo_ID},#{ShopType_ID})
 	</insert>
+	
+	<!-- update：更新 -->
+	<!-- set：mybatis动态生成sql功能：
+			若某张表里面的A列和B列，更新的时候，有时候只需要更新A，有时候只需要更新B，有时候需要更新A和B
+			若没有动态生成sql，我们就需要写相应的3条更新sql语句
+			动态生成sql就可以实现根据不同的情况生成不同的sql更新语句 -->
+	<update id="updateShop" parameterType="com.ctyFL.o2o.entity.Shop">
+		UPDATE
+		Shop
+		<set>
+			<!-- if：写判断条件 -->
+			<!-- test="实体类的成员变量 + 条件" -->
+			<!-- if标签里的值写sql语句（如这里：数据库表对应的字段=#{实体类对应的成员变量}）-->
+			<!-- 因为是拼接sql，所以更新的若不是的最后一个字段，则结尾要加“，” -->
+			<!-- 这里为：若*传进来的实体*的成员变量xxx不为null，则更新数据库相应字段xxx -->
+			<if test="Description != null">Description=#{Description},</if>
+			<if test="Address != null">Address=#{Address},</if>
+			<if test="Phone != null">Phone=#{Phone},</if>
+			<if test="Img != null">Img=#{Img},</if>
+			<if test="Advice != null">Advice=#{Advice},</if>
+			<if test="LastModifyTime != null">LastModifyTime=#{LastModifyTime}</if>
+		</set>
+		<!-- 条件：数据库字段ID=#{传进来的实体的成员变量ID} -->
+		WHERE ID=#{ID}
+	</update>
+	
 </mapper>
