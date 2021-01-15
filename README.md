@@ -64,3 +64,12 @@
 **08uselogback**
 
 	21.编写logback.xml配置文件：src/main/resources：logback.xml
+
+
+**09shopRegister**
+
+	01编写ShopDao接口：
+		01.创建接口：com.ctyFL.o2o.dao.ShopDao.java
+		02.编写ShopDao接口的mybatis数据库映射配置文件：ShopDao.xml
+		03.数据库插入测试数据：PersonInfo、ShopType
+		04编写单元测试：com.ctyFL.o2o.dao.ShopDaoTest
