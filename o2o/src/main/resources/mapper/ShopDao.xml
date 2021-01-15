@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ctyFL.o2o.dao.ShopDao">
+	<!-- useGeneratedKeys=true：使用jdbc的getGeneratedKeys获取数据库自增主键值
+		 一旦数据添加成功，就会通过jdbc来获取主键的值，插入到传入的实体类中
+		 keyColumn：数据库对应的主键
+		 keyProperty：主键对应实体类的属性 -->
+	<insert id="insertShop" useGeneratedKeys="true" keyColumn="ID" keyProperty="ID">
+		INSERT INTO
+		Shop
+		(Name,Description,Address,Phone,Img,Priority,DataCreationDate,
+		LastModifyTime,Status,Advice,Area_ID,PersonInfo_ID,ShopType_ID)
+		VALUES
+		(#{Name},#{Description},#{Address},#{Phone},#{Img},#{Priority},#{DataCreationDate},
+		#{LastModifyTime},#{Status},#{Advice},#{Area_ID},#{PersonInfo_ID},#{ShopType_ID})
+	</insert>
+</mapper>
