@@ -2,6 +2,7 @@ package com.ctyFL.o2o.dao;
 
 import static org.junit.Assert.assertEquals;
 import java.util.Date;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.ctyFL.o2o.BaseTest;
@@ -19,6 +20,8 @@ public class ShopDaoTest extends BaseTest {
 	ShopDao shopDao;
 	
 	@Test
+	/*@Ignore：若此次测试不想执行这个方法*/
+	@Ignore
 	public void testInsertShop() {
 		Shop shop = new Shop();
 		shop.setName("测试商铺");
@@ -39,4 +42,22 @@ public class ShopDaoTest extends BaseTest {
 		assertEquals(1, insertRows);
 		System.out.println("返回的Shop自增主键" + shop.getID());
 	}
+	
+	@Test
+	public void testUpdateShop() {
+		Shop shop = new Shop();
+		//查询数据得知测试Shop数据的ID=1
+		shop.setID(1l);
+		//对应映射文件ShopDao.xml要更新的字段
+		shop.setDescription("Description测试更新");
+		shop.setAddress("Address测试更新");
+		shop.setPhone("Phone测试更新");
+		shop.setImg("Img测试更新");
+		shop.setAdvice("Advice测试更新");
+		shop.setLastModifyTime(new Date());
+		int updateRows = shopDao.updateShop(shop);
+		//成功更新条数是否为1
+		assertEquals(1, updateRows);
+	}
+	
 }
