@@ -44,13 +44,15 @@
 		</rollingPolicy>
 		<!-- encoder：负责将事件转换成字符串 + 负责将日志输出到文件中 -->
 		<encoder>
-			<!-- 由于debug日志只记录debug级别的日志，因此加入过滤器filter，符合则接受ACCEPT，不符合则否定DENY -->
-			<filter class="ch.qos.logback.classic.filter.LevelFilter">
-				<level>DEBUG</level>
-				<onMatch>ACCEPT</onMatch>
-				<onMismatch>DENY</onMismatch>
-			</filter>
+			<!-- pattern：定义日志输出的格式：${log.pattern}：即上面参数常量定义的日志输出格式 -->
+			<pattern>${log.pattern}</pattern>
 		</encoder>
+		<!-- 由于debug日志只记录debug级别的日志，因此加入过滤器filter，符合则接受ACCEPT，不符合则否定DENY -->
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>DEBUG</level>
+			<onMatch>ACCEPT</onMatch>
+			<onMismatch>DENY</onMismatch>
+		</filter>
 	</appender>
 	
 	<!-- 媒介3——INFO：infoAppender：RollingFileAppender——文件会随着size的增大会滚动出新的日志文件来 -->
@@ -66,13 +68,15 @@
 		</rollingPolicy>
 		<!-- encoder：负责将事件转换成字符串 + 负责将日志输出到文件中 -->
 		<encoder>
-			<!-- 由于info日志只记录info级别的日志，因此加入过滤器filter，符合则接受ACCEPT，不符合则否定DENY -->
-			<filter class="ch.qos.logback.classic.filter.LevelFilter">
-				<level>INFO</level>
-				<onMatch>ACCEPT</onMatch>
-				<onMismatch>DENY</onMismatch>
-			</filter>
+			<!-- pattern：定义日志输出的格式：${log.pattern}：即上面参数常量定义的日志输出格式 -->
+			<pattern>${log.pattern}</pattern>
 		</encoder>
+		<!-- 由于info日志只记录info级别的日志，因此加入过滤器filter，符合则接受ACCEPT，不符合则否定DENY -->
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>INFO</level>
+			<onMatch>ACCEPT</onMatch>
+			<onMismatch>DENY</onMismatch>
+		</filter>
 	</appender>
 	
 	<!-- 媒介4——ERROR：errorAppender：RollingFileAppender——文件会随着size的增大会滚动出新的日志文件来 -->
@@ -88,13 +92,15 @@
 		</rollingPolicy>
 		<!-- encoder：负责将事件转换成字符串 + 负责将日志输出到文件中 -->
 		<encoder>
-			<!-- 由于error日志只记录error级别的日志，因此加入过滤器filter，符合则接受ACCEPT，不符合则否定DENY -->
-			<filter class="ch.qos.logback.classic.filter.LevelFilter">
-				<level>ERROR</level>
-				<onMatch>ACCEPT</onMatch>
-				<onMismatch>DENY</onMismatch>
-			</filter>
+			<!-- pattern：定义日志输出的格式：${log.pattern}：即上面参数常量定义的日志输出格式 -->
+			<pattern>${log.pattern}</pattern>
 		</encoder>
+		<!-- 由于error日志只记录error级别的日志，因此加入过滤器filter，符合则接受ACCEPT，不符合则否定DENY -->
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>ERROR</level>
+			<onMatch>ACCEPT</onMatch>
+			<onMismatch>DENY</onMismatch>
+		</filter>
 	</appender>
 	
 	
