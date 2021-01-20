@@ -76,3 +76,10 @@
 		05.ShopDao.java接口中新增更新Shop方法
 		06.ShopDao.xml中新增更新Shop配置
 		07.单元测试更新Shop
+
+	02使用Thumbnailator图片处理和封装Util：
+		01.pom.xml添加Thumbnailator工具类的依赖
+		02.准备好测试图片和水印图片：E:\gitHubDev\image\testimg、src\main\resources\image\icon和src\test\resources\image\icon下icon_fl.png
+		03.编写单元测试：com.ctyFL.o2o.util.ImageUtilTest
+		04.编写路径工具类：com.ctyFL.o2o.util.PathUtil
+		05.编写图片处理工具类：com.ctyFL.o2o.util.ImageUtilTest
