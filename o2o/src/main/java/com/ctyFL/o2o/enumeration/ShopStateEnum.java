@@ -6,10 +6,10 @@ package com.ctyFL.o2o.enumeration;
  * @date 2021年1月21日
  */
 public enum ShopStateEnum {
-	CHECK(0, "审核中"),
-	OFFLINE(-1, "店铺非法"),
-	SUCCESS(1, "操作成功"),
-	PASS(2, "通过认证"),
+	SUCCESS(0, "操作成功"),
+	CHECK(1, "审核中"),
+	OFFLINE(2, "店铺非法"),
+	PASS(3, "通过认证"),
 	INNER_ERROR(-1001, "内部系统错误"),
 	NULL_SHOPID(-1002, "ShopId为空"),
 	NULL_SHOP(-1003, "Shop为空");
