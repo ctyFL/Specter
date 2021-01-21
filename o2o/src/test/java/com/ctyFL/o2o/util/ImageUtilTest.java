@@ -30,7 +30,7 @@ public class ImageUtilTest {
 		File watermarkImgFile = new File(classPath + "/image/icon/icon_fl.png");
 		
 		Thumbnails.of(imgFile)//Thumbnailator图片处理工具类的主类.读取要处理的图片
-		.size(200, 200)//大小：长、宽，单位：像素
+		.size(1628, 762)//大小：长、宽，单位：像素（即要生成的图片的长、宽的像素）
 		.watermark(Positions.BOTTOM_RIGHT, ImageIO.read(watermarkImgFile), 0.25f)//水印：Positiion.BOTTOM_RIGHT——位置右下角，ImageIO.read——读取水印图片的文件流，0.25f——透明度为0.25
 		.outputQuality(0.8f)//压缩图片：80%
 		.toFile("E:/gitHubDev/image/testimgnew.png");//输出路径：输出到图片原来的路径，命名为testimgnew.png
