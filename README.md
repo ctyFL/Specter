@@ -83,3 +83,6 @@
 		03.编写单元测试：com.ctyFL.o2o.util.ImageUtilTest
 		04.编写路径工具类：com.ctyFL.o2o.util.PathUtil
 		05.编写图片处理工具类：com.ctyFL.o2o.util.ImageUtilTest
+
+	03注册店铺的Service层：
+		01创建操作店铺的状态的枚举类：com.ctyFL.o2o.enumeration.ShopStateEnum、操作店铺的返回参数的封装类：com.ctyFL.o2o.dto.ShopExecution
