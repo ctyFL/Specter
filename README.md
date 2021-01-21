@@ -85,4 +85,5 @@
 		05.编写图片处理工具类：com.ctyFL.o2o.util.ImageUtilTest
 
 	03注册店铺的Service层：
-		01创建操作店铺的状态的枚举类：com.ctyFL.o2o.enumeration.ShopStateEnum、操作店铺的返回参数的封装类：com.ctyFL.o2o.dto.ShopExecution
+		01.创建操作店铺的状态的枚举类：com.ctyFL.o2o.enumeration.ShopStateEnum、操作店铺的返回参数的封装类：com.ctyFL.o2o.dto.ShopExecution
+		02.创建Service接口及其实现类：com.ctyFL.o2o.services.ShopService、com.ctyFL.o2o.services.impl.ShopServiceImpl
