@@ -9,6 +9,7 @@ import com.ctyFL.o2o.dao.ShopDao;
 import com.ctyFL.o2o.dto.ShopExecution;
 import com.ctyFL.o2o.entity.Shop;
 import com.ctyFL.o2o.enumeration.ShopStateEnum;
+import com.ctyFL.o2o.exceptions.ShopOperationException;
 import com.ctyFL.o2o.services.ShopService;
 import com.ctyFL.o2o.util.ImageUtil;
 import com.ctyFL.o2o.util.PathUtil;
@@ -48,24 +49,25 @@ public class ShopServiceImpl implements ShopService {
 			int effectedNum = shopDao.insertShop(shop);
 			if(effectedNum <= 0) {
 				//这里用RuntimeException：因为当前程序只有抛出RuntimeException及RuntimeException的子类的Exception的时候，事务才会终止、回滚
-				throw new RuntimeException("店铺创建失败");
+				//创建了一个异常封装类（继承RuntimeException）
+				throw new ShopOperationException("店铺创建失败");
 			}else {
 				if(shopImg != null) {
 					try {
 						//存储图片
 						addShopImg(shop, shopImg);
 					} catch (Exception e) {
-						throw new RuntimeException("addShopImg error：" + e.getMessage());
+						throw new ShopOperationException("addShopImg error：" + e.getMessage());
 					}
 					//更新店铺图片路径地址
 					effectedNum = shopDao.updateShop(shop);
 					if(effectedNum <= 0) {
-						throw new RuntimeException("更新图片地址失败");
+						throw new ShopOperationException("更新图片地址失败");
 					}
 				}
 			}
 		} catch (Exception e) {
-			throw new RuntimeException("addShop error：" + e.getMessage());
+			throw new ShopOperationException("addShop error：" + e.getMessage());
 		}
 		//返回待审核的返回参数
 		return new ShopExecution(ShopStateEnum.CHECK, shop);
