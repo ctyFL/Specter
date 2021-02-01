@@ -1,4 +1,8 @@
 package com.ctyFL.o2o.util;
+
+import java.io.File;
+import java.util.regex.Matcher;
+
 /**
  * <p>Title: PathUtil</p>
  * <p>Description: 路径工具类</p>
@@ -10,7 +14,7 @@ public class PathUtil {
 	/**
 	 * 获取当前操作系统的分隔符
 	 */
-	private static String seperator = System.getProperty("file.seperator");
+	private static String separator = System.getProperty("file.separator");
 
 	/**
 	 * 返回存储图片的目标根路径（绝对路径）
@@ -28,7 +32,7 @@ public class PathUtil {
 			basePath = "/home/gitHubDev/image/";
 		}
 		//替换为当前系统的分隔符
-		basePath = basePath.replaceAll("/", seperator);
+		basePath = basePath.replace("/", separator);
 		return basePath;
 	}
 	
@@ -40,6 +44,6 @@ public class PathUtil {
 	public static String getShopImgPath(long shopId) {
 		String imagePath = "/upload/item/shop/" + shopId + "/";
 		//替换为当前系统的分隔符
-		return imagePath.replaceAll("/", seperator);
+		return imagePath.replace("/",  separator);
 	}
 }

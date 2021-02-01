@@ -1,13 +1,10 @@
 package com.ctyFL.o2o.services;
 
 import static org.junit.Assert.assertEquals;
-
 import java.io.File;
 import java.util.Date;
-
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import com.ctyFL.o2o.BaseTest;
 import com.ctyFL.o2o.dto.ShopExecution;
 import com.ctyFL.o2o.entity.Shop;
