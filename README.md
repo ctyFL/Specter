@@ -87,3 +87,5 @@
 	03注册店铺的Service层：
 		01.创建操作店铺的状态的枚举类：com.ctyFL.o2o.enumeration.ShopStateEnum、操作店铺的返回参数的封装类：com.ctyFL.o2o.dto.ShopExecution
 		02.创建Service接口及其实现类：com.ctyFL.o2o.services.ShopService、com.ctyFL.o2o.services.impl.ShopServiceImpl
+		03.封装异常类并在实现类中使用异常类：com.ctyFL.o2o.exceptions.ShopOperationException
+		04.编写ShopService接口的单元测试：com.ctyFL.o2o.services.ShopServiceTest
