@@ -89,3 +89,8 @@
 		02.创建Service接口及其实现类：com.ctyFL.o2o.services.ShopService、com.ctyFL.o2o.services.impl.ShopServiceImpl
 		03.封装异常类并在实现类中使用异常类：com.ctyFL.o2o.exceptions.ShopOperationException
 		04.编写ShopService接口的单元测试：com.ctyFL.o2o.services.ShopServiceTest
+
+	04注册店铺的Controller层：
+		01.pom.xml引入jackson-databind依赖（json与实体类互相转换的工具类）
+		02.编写HttpServletRequest参数的工具类：com.ctyFL.o2o.util.HttpServletRequestUtil
+		03.编写ShopController：com.ctyFL.o2o.controller.shopadmin.ShopManagementController
