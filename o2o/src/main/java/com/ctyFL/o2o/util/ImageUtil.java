@@ -2,6 +2,7 @@ package com.ctyFL.o2o.util;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Random;
@@ -49,15 +50,15 @@ public class ImageUtil {
 	 * @param targetPath
 	 * @return
 	 */
-	public static String generateThumbnail(File file, String targetPath) {
+	public static String generateThumbnail(InputStream inputStream, String fileName, String targetPath) {
 		//文件名
-		String fileName = getRandomFileName();
+		String realFileName = getRandomFileName();
 		//文件扩展名（格式）
-		String extension = getFileExtension(file);
+		String extension = getFileExtension(fileName);
 		//创建文件夹
 		makeDirPath(targetPath);
 		//相对路径
-		String relativePath = targetPath + fileName + extension;
+		String relativePath = targetPath + realFileName + extension;
 		logger.debug("图片存储的目标相对路径：" + relativePath);
 		//保存文件的全路径（绝对路径）
 		String saveFilePath = PathUtil.getImgBasePath() + relativePath;
@@ -66,7 +67,7 @@ public class ImageUtil {
 		//读取测试的水印图片
 		File watermarkImgFile = new File(classPath + "/image/icon/icon_fl.png");
 		try {
-			Thumbnails.of(file)//Thumbnailator图片处理工具类的主类.读取要处理的图片
+			Thumbnails.of(inputStream)//Thumbnailator图片处理工具类的主类.读取要处理的图片
 			.size(1628, 762)//大小：长、宽，单位：像素（即要生成的图片的长、宽的像素）
 			.watermark(Positions.BOTTOM_RIGHT, ImageIO.read(watermarkImgFile), 0.25f)//水印：Positiion.BOTTOM_RIGHT——位置右下角，ImageIO.read——读取水印图片的文件流，0.25f——透明度为0.25
 			.outputQuality(0.8f)//压缩图片：80%
@@ -95,8 +96,7 @@ public class ImageUtil {
 	 * @param file
 	 * @return
 	 */
-	private static String getFileExtension(File file) {
-		String fileName = file.getName();
+	private static String getFileExtension(String fileName) {
 		return fileName.substring(fileName.lastIndexOf("."));
 	}
 	

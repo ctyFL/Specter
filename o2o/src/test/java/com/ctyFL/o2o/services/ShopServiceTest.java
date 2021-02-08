@@ -2,6 +2,9 @@ package com.ctyFL.o2o.services;
 
 import static org.junit.Assert.assertEquals;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.Date;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +12,7 @@ import com.ctyFL.o2o.BaseTest;
 import com.ctyFL.o2o.dto.ShopExecution;
 import com.ctyFL.o2o.entity.Shop;
 import com.ctyFL.o2o.enumeration.ShopStateEnum;
+import com.ctyFL.o2o.exceptions.ShopOperationException;
 
 /**
  * <p>Title: ShopServiceTest</p>
@@ -22,7 +26,7 @@ public class ShopServiceTest extends BaseTest {
 	ShopService shopService;
 	
 	@Test
-	public void addShopTest() {
+	public void addShopTest() throws ShopOperationException, FileNotFoundException {
 		Shop shop = new Shop();
 		shop.setName("测试商铺2");
 		shop.setDescription("测试2");
@@ -39,7 +43,12 @@ public class ShopServiceTest extends BaseTest {
 		shop.setShopType_ID(1l);
 		
 		File shopImg = new File("E:\\gitHubDev\\image\\testimg.png");
-		ShopExecution execution = shopService.addShop(shop, shopImg);
+		/*
+		 * 原先传入File是为了方便测试，重构ShopService的addShop后，修改代码
+		 */
+		//ShopExecution execution = shopService.addShop(shop, shopImg);
+		InputStream is = new FileInputStream(shopImg);
+		ShopExecution execution = shopService.addShop(shop, is, shopImg.getName());
 		
 		//判断添加商品并添加图片后，返回状态值是否是审核中
 		assertEquals(ShopStateEnum.CHECK.getState(), execution.getState());

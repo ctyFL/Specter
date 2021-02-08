@@ -1,6 +1,6 @@
 package com.ctyFL.o2o.services.impl;
 
-import java.io.File;
+import java.io.InputStream;
 import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,7 +35,7 @@ public class ShopServiceImpl implements ShopService {
 	 */
 	@Override
 	@Transactional
-	public ShopExecution addShop(Shop shop, File shopImg) {
+	public ShopExecution addShop(Shop shop, InputStream shopImgInputStream, String fileName) throws ShopOperationException {
 		if(shop == null) {
 			//返回错误信息
 			return new ShopExecution(ShopStateEnum.NULL_SHOP);
@@ -52,10 +52,10 @@ public class ShopServiceImpl implements ShopService {
 				//创建了一个异常封装类（继承RuntimeException）
 				throw new ShopOperationException("店铺创建失败");
 			}else {
-				if(shopImg != null) {
+				if(shopImgInputStream != null) {
 					try {
 						//存储图片
-						addShopImg(shop, shopImg);
+						addShopImg(shop, shopImgInputStream, fileName);
 					} catch (Exception e) {
 						throw new ShopOperationException("addShopImg error：" + e.getMessage());
 					}
@@ -78,10 +78,10 @@ public class ShopServiceImpl implements ShopService {
 	 * @param shop
 	 * @param shopImg
 	 */
-	private void addShopImg(Shop shop, File shopImg) {
+	private void addShopImg(Shop shop, InputStream shopImgInputStream, String fileName) {
 		//获取shop图片目录的相对路径
 		String dest = PathUtil.getShopImgPath(shop.getID());
-		String shopImgPath = ImageUtil.generateThumbnail(shopImg, dest);
+		String shopImgPath = ImageUtil.generateThumbnail(shopImgInputStream, fileName, dest);
 		shop.setImg(shopImgPath);
 	}
 
