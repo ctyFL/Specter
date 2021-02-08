@@ -94,3 +94,7 @@
 		01.pom.xml引入jackson-databind依赖（json与实体类互相转换的工具类）
 		02.编写HttpServletRequest参数的工具类：com.ctyFL.o2o.util.HttpServletRequestUtil
 		03.编写ShopController：com.ctyFL.o2o.controller.shopadmin.ShopManagementController
+		04.重构ShopService接口的addShop方法：
+				addShop(Shop shop, File file)——>addShop(Shop shop, InputStream shopImgInputStream, String fileName) throws ShopOperationException
+			（原先传入File是为了方便测试，后期发现Controller中每次都创建一个空文件，将上传的文件流写入文件，并且容易发生写入异常，所以不合理）
+		05.重构：修改ShopService、ShopServiceImpl、ImageUtil、ShopManagementController、ShopServiceTest中相应代码

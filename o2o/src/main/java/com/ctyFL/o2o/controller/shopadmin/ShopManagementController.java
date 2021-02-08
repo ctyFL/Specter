@@ -1,9 +1,6 @@
 package com.ctyFL.o2o.controller.shopadmin;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
@@ -20,10 +17,9 @@ import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import com.ctyFL.o2o.dto.ShopExecution;
 import com.ctyFL.o2o.entity.Shop;
 import com.ctyFL.o2o.enumeration.ShopStateEnum;
+import com.ctyFL.o2o.exceptions.ShopOperationException;
 import com.ctyFL.o2o.services.ShopService;
 import com.ctyFL.o2o.util.HttpServletRequestUtil;
-import com.ctyFL.o2o.util.ImageUtil;
-import com.ctyFL.o2o.util.PathUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 /**
  * <p>Title: ShopManagementController</p>
@@ -92,23 +88,47 @@ public class ShopManagementController {
 		}
 		//2.注册店铺
 		if(shop != null && shopImg != null) {
+			//Session TODO
 			shop.setPersonInfo_ID(1l);
-			File shopImgFile = new File(PathUtil.getImgBasePath() + ImageUtil.getRandomFileName());
+			/**
+			 * 这里不合理，因为每次都要去创建一个空文件，然后把上传的文件流写入进去，而写入的时候又容易抛出异常，大大的增加了系统的不稳定性
+			 * 因此需要做重构：将ShopService接口的addShop方法的传入File文件改成直接传入InputStream流
+			 * 重构后将以下代码注释
+			 */
+//			File shopImgFile = new File(PathUtil.getImgBasePath() + ImageUtil.getRandomFileName());
+//			try {
+//				shopImgFile.createNewFile();
+//				inputStreamToFile(shopImg.getInputStream(), shopImgFile);
+//			} catch (IOException e) {
+//				e.printStackTrace();
+//				modelMap.put("success", false);
+//				modelMap.put("errMsg", e.getMessage());
+//				return modelMap;
+//			}
+//			ShopExecution se = service.addShop(shop, shopImgFile);
+//			if(se.getState() == ShopStateEnum.CHECK.getState()) {
+//				modelMap.put("success", true);
+//			}else {
+//				modelMap.put("success", false);
+//				modelMap.put("errMsg", se.getStateInfo());
+//			}
+			ShopExecution se;
 			try {
-				shopImgFile.createNewFile();
-				inputStreamToFile(shopImg.getInputStream(), shopImgFile);
+				se = service.addShop(shop, shopImg.getInputStream(), shopImg.getOriginalFilename());
+				if(se.getState() == ShopStateEnum.CHECK.getState()) {
+					modelMap.put("success", true);
+				}else {
+					modelMap.put("success", false);
+					modelMap.put("errMsg", se.getStateInfo());
+				}
+			} catch (ShopOperationException e) {
+				e.printStackTrace();
+				modelMap.put("success", false);
+				modelMap.put("errMsg", e.getMessage());
 			} catch (IOException e) {
 				e.printStackTrace();
 				modelMap.put("success", false);
 				modelMap.put("errMsg", e.getMessage());
-				return modelMap;
-			}
-			ShopExecution se = service.addShop(shop, shopImgFile);
-			if(se.getState() == ShopStateEnum.CHECK.getState()) {
-				modelMap.put("success", true);
-			}else {
-				modelMap.put("success", false);
-				modelMap.put("errMsg", se.getStateInfo());
 			}
 			//3.返回结果
 			return modelMap;
@@ -119,29 +139,35 @@ public class ShopManagementController {
 		}
 	}
 	
-	private static void inputStreamToFile(InputStream in, File file) {
-		FileOutputStream os = null;
-		try {
-			os = new FileOutputStream(file);
-			int bytesRead = 0;
-			byte[] buffer = new byte[1024];
-			while((bytesRead = in.read(buffer)) != -1) {
-				os.write(buffer, 0, bytesRead);
-			}
-		} catch (Exception e) {
-			throw new RuntimeException("调用inputStreamToFile发生异常：" + e.getMessage());
-		} finally {
-			try {
-				if(os != null) {
-					os.close();
-				}
-				if(in != null) {
-					in.close();
-				}
-			} catch (IOException ex) {
-				throw new RuntimeException("inputStreamToFile关闭IO发生异常：" + ex.getMessage());
-			}
-		}
-	}
+	/**
+	 * 将InputStream流转换成文件，重构ShopService接口addShop方法后（把原来的传入File）
+	 * @param in
+	 * @param file
+	 * 重构后将此方法注释
+	 */
+//	private static void inputStreamToFile(InputStream in, File file) {
+//		FileOutputStream os = null;
+//		try {
+//			os = new FileOutputStream(file);
+//			int bytesRead = 0;
+//			byte[] buffer = new byte[1024];
+//			while((bytesRead = in.read(buffer)) != -1) {
+//				os.write(buffer, 0, bytesRead);
+//			}
+//		} catch (Exception e) {
+//			throw new RuntimeException("调用inputStreamToFile发生异常：" + e.getMessage());
+//		} finally {
+//			try {
+//				if(os != null) {
+//					os.close();
+//				}
+//				if(in != null) {
+//					in.close();
+//				}
+//			} catch (IOException ex) {
+//				throw new RuntimeException("inputStreamToFile关闭IO发生异常：" + ex.getMessage());
+//			}
+//		}
+//	}
 
 }
