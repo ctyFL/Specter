@@ -98,3 +98,10 @@
 				addShop(Shop shop, File file)——>addShop(Shop shop, InputStream shopImgInputStream, String fileName) throws ShopOperationException
 			（原先传入File是为了方便测试，后期发现Controller中每次都创建一个空文件，将上传的文件流写入文件，并且容易发生写入异常，所以不合理）
 		05.重构：修改ShopService、ShopServiceImpl、ImageUtil、ShopManagementController、ShopServiceTest中相应代码
+
+	05注册店铺前端设计：
+		01.使用前端UI框架SUI Mobile：下载所需静态资源（css\js）并引入工程，模仿表单示例创建店铺信息表单页面（WEB-INFO/html/shop/shopoperation.html）并引入SUI的静态资源
+		02.创建ShopAdminController负责控制用户访问的路由、配置访问请求的转发（/shopadmin/shopoperation）
+		03.创建店铺信息（注册）页面的js：resources/js/shop/shopoperation.js（初始化数据即获取店铺类别列表及区域列表数据、提交表单方法），shopoperation.html中引入该js
+		04获取店铺类别列表、区域列表的后台实现：ShopTypeDao接口、ShopTypeDao.xml、ShopTypeDaoTest、ShopTypeService接口及实现类ShopTypeServiceImpl、
+			ShopManagementController中添加方法getShopInitInfo

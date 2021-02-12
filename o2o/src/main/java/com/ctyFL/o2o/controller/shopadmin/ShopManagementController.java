@@ -1,7 +1,9 @@
 package com.ctyFL.o2o.controller.shopadmin;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
@@ -15,10 +17,14 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import com.ctyFL.o2o.dto.ShopExecution;
+import com.ctyFL.o2o.entity.Area;
 import com.ctyFL.o2o.entity.Shop;
+import com.ctyFL.o2o.entity.ShopType;
 import com.ctyFL.o2o.enumeration.ShopStateEnum;
 import com.ctyFL.o2o.exceptions.ShopOperationException;
+import com.ctyFL.o2o.services.AreaService;
 import com.ctyFL.o2o.services.ShopService;
+import com.ctyFL.o2o.services.ShopTypeService;
 import com.ctyFL.o2o.util.HttpServletRequestUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 /**
@@ -41,6 +47,12 @@ public class ShopManagementController {
 	 */
 	@Autowired
 	private ShopService service;
+	
+	@Autowired
+	private ShopTypeService shopTypeService;
+	
+	@Autowired
+	private AreaService areaService;
 	
 	/**
 	 * 注册店铺
@@ -138,6 +150,31 @@ public class ShopManagementController {
 			return modelMap;
 		}
 	}
+	
+	/**
+	 * 获取店铺类别列表、区域列表
+	 * @return
+	 */
+	@RequestMapping(value = "/getshopinitinfo", method = RequestMethod.GET)
+	@ResponseBody
+	public Map<String, Object> getShopInitInfo() {
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+		List<ShopType> shopTypeList = new ArrayList<ShopType>();
+		List<Area> areaList = new ArrayList<Area>();
+		try {
+			//注册时，控制注册的店铺不能直接在一级店铺下，而是至少在二级店铺下，所以返回ParentId!=0的所有店铺填充下拉选
+			shopTypeList = shopTypeService.getShopTypeList(new ShopType());
+			areaList = areaService.getAreaList();
+			modelMap.put("success", true);
+			modelMap.put("shopCategoryList", shopTypeList);
+			modelMap.put("areaList", areaList);
+		} catch (Exception e) {
+			e.printStackTrace();
+			modelMap.put("success", false);
+			modelMap.put("errMsg", e.getMessage());
+		}
+		return modelMap;
+	} 
 	
 	/**
 	 * 将InputStream流转换成文件，重构ShopService接口addShop方法后（把原来的传入File）
