@@ -107,6 +107,18 @@
 							</div>
 						</li>
 						<!-- 验证码 -->
+						<li>
+							<div class="item-content">
+								<div class="item-inner">
+									<div class="item-title label">验证码</div>
+									<input type="text" id="captcha" placeholder="验证码">
+									<div class="item-input">
+										<!-- src='../Kaptcha' 找到web.xml中的Kaptcha这个Servlet -->
+										<img id="cpatcha_img" alt="点击更换" title="点击更换" onclick="changeVerifyCode(this)" src="../Kaptcha">
+									</div>
+								</div>
+							</div>
+						</li>
 					</ul>
 				</div>
 				<div class="content-block">
@@ -127,5 +139,6 @@
 <script type='text/javascript' src='../resources/mobile/sui-mobile/dist/js/sm.min.js' charset='utf-8'></script>
 <script type='text/javascript' src='../resources/mobile/sui-mobile/dist/js/sm-extend.min.js' charset='utf-8'></script>
 <script type='text/javascript' src='../resources/js/shop/shopoperation.js' charset='utf-8'></script>
+<script type='text/javascript' src='../resources/js/common/common.js' charset='utf-8'></script>
 </body>
 </html>

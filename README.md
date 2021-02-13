@@ -102,6 +102,8 @@
 	05注册店铺前端设计：
 		01.使用前端UI框架SUI Mobile：下载所需静态资源（css\js）并引入工程，模仿表单示例创建店铺信息表单页面（WEB-INFO/html/shop/shopoperation.html）并引入SUI的静态资源
 		02.创建ShopAdminController负责控制用户访问的路由、配置访问请求的转发（/shopadmin/shopoperation）
-		03.创建店铺信息（注册）页面的js：resources/js/shop/shopoperation.js（初始化数据即获取店铺类别列表及区域列表数据、提交表单方法），shopoperation.html中引入该js
-		04获取店铺类别列表、区域列表的后台实现：ShopTypeDao接口、ShopTypeDao.xml、ShopTypeDaoTest、ShopTypeService接口及实现类ShopTypeServiceImpl、
+		03.创建店铺信息（注册）页面的js：resources/js/shop/shopoperation.js（初始化数据即获取店铺类别下拉选数据及区域下拉选数据、提交表单方法），shopoperation.html中引入该js
+		04.获取店铺类别列表、区域列表的后台实现：ShopTypeDao接口、ShopTypeDao.xml、ShopTypeDaoTest、ShopTypeService接口及实现类ShopTypeServiceImpl、
 			ShopManagementController中添加方法getShopInitInfo
+		05.使用com.github.penggle实现验证码功能：pom.xml引入依赖，web.xml中完成相关配置，店铺信息页面中只有验证码控件，添加公共js--common.js并实现生成验证码方法，
+			表单提交方法中添加获取验证码代码，后台添加相关校验代码
