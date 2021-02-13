@@ -53,10 +53,17 @@ function initSubmitEven(){
 		};
 		//获取上传文件流
 		var shopImg = $("#img")[0].files[0];
+		//验证码
+		var verifyCodeActual = $("#captcha").val();
+		if(!verifyCodeActual){
+			$.toast("请输入验证码！");
+			return; 
+		}
 		//表单控件
 		var formData = new FormData();
 		formData.append("shopImg", shopImg);
 		formData.append("josnStr", JSON.stringify(shop));
+		formData.append("verifyCodeActual", verifyCodeActual);
 		$.ajax({
 			url: registerShopUrl,
 			type: "POST",
@@ -70,6 +77,7 @@ function initSubmitEven(){
 				}else{
 					$.toast("提交失败：" + data.errMsg);
 				}
+				$("#cpatcha_img").click();
 			}
 		})
 	});

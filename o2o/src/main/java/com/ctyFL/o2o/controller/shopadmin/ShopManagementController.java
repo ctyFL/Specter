@@ -25,6 +25,7 @@ import com.ctyFL.o2o.exceptions.ShopOperationException;
 import com.ctyFL.o2o.services.AreaService;
 import com.ctyFL.o2o.services.ShopService;
 import com.ctyFL.o2o.services.ShopTypeService;
+import com.ctyFL.o2o.util.CodeUtil;
 import com.ctyFL.o2o.util.HttpServletRequestUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 /**
@@ -73,6 +74,11 @@ public class ShopManagementController {
 		Map<String, Object> modelMap = new HashMap<String, Object>();
 		//1.接收并转换相应的参数，包括商铺信息、图片信息
 		String jsonStr = HttpServletRequestUtil.getStringValue(request, "jsonStr");
+		if(!CodeUtil.checkVerifyCode(request)) {
+			modelMap.put("success", false);
+			modelMap.put("errMsg", "验证码错误！");
+			return modelMap;
+		}
 		//jackson-databind工具类
 		ObjectMapper mapper = new ObjectMapper();
 		Shop shop = null;
