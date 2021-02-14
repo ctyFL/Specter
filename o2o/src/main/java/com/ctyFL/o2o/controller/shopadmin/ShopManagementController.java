@@ -108,6 +108,8 @@ public class ShopManagementController {
 		if(shop != null && shopImg != null) {
 			//Session TODO
 			shop.setPersonInfo_ID(1l);
+			//新增的店铺默认设置权重为0
+			shop.setPriority(0);
 			/**
 			 * 这里不合理，因为每次都要去创建一个空文件，然后把上传的文件流写入进去，而写入的时候又容易抛出异常，大大的增加了系统的不稳定性
 			 * 因此需要做重构：将ShopService接口的addShop方法的传入File文件改成直接传入InputStream流

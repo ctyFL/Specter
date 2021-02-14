@@ -37,20 +37,16 @@ function initShopCategoryAndArea(){
 function initSubmitEven(){
 	$("#submit").click(function(){
 		var shop = {};
-		shop.shopName = $("#shopName").val();
+		shop.name = $("#shopName").val();
 		shop.phone = $("#phone").val();
-		shop.shopAddr = $("#address").val();
-		shop.shopDesc = $("#shopDesc").val();
-		shop.shopCategory = {
-			shopCategoryId: $("#shopCategory").find("option").not(function(){
+		shop.address = $("#address").val();
+		shop.description = $("#shopDesc").val();
+		shop.shopType_ID = $("#shopCategory").find("option").not(function(){
 				return !this.selected;
 			}).data("id")
-		};
-		shop.area = {
-			shopArea: $("#area").find("option").not(function(){
+		shop.area_ID = $("#area").find("option").not(function(){
 				return !this.selected;
 			}).data("id")
-		};
 		//获取上传文件流
 		var shopImg = $("#img")[0].files[0];
 		//验证码
@@ -62,7 +58,7 @@ function initSubmitEven(){
 		//表单控件
 		var formData = new FormData();
 		formData.append("shopImg", shopImg);
-		formData.append("josnStr", JSON.stringify(shop));
+		formData.append("jsonStr", JSON.stringify(shop));
 		formData.append("verifyCodeActual", verifyCodeActual);
 		$.ajax({
 			url: registerShopUrl,
