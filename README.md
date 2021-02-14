@@ -107,3 +107,10 @@
 			ShopManagementController中添加方法getShopInitInfo
 		05.使用com.github.penggle实现验证码功能：pom.xml引入依赖，web.xml中完成相关配置，店铺信息页面中只有验证码控件，添加公共js--common.js并实现生成验证码方法，
 			表单提交方法中添加获取验证码代码，后台添加相关校验代码
+
+	06注册店铺功能模块最后集成测试：
+		解决Bug：
+		01.shopoperation.js中表单提交方法修改单词拼写错误formData.append("jsonStr", JSON.stringify(shop));
+		02.spring-web.xml中补充文件上传解析器相关配置、pom.xml中补充文件上传jar包依赖
+		03.shopoperation.js中表单提交方法修改json定义key值名称，使之对应Shop实体成员变量名称
+		04.ShopManagementController中registerShop方法中添加setPriority代码
