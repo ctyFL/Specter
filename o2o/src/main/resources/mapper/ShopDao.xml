@@ -32,11 +32,16 @@
 			<!-- if标签里的值写sql语句（如这里：数据库表对应的字段=#{实体类对应的成员变量}）-->
 			<!-- 因为是拼接sql，所以更新的若不是的最后一个字段，则结尾要加“，” -->
 			<!-- 这里为：若*传进来的实体*的成员变量xxx不为null，则更新数据库相应字段xxx -->
+			<if test="Name != null">Name=#{Name},</if>
 			<if test="Description != null">Description=#{Description},</if>
 			<if test="Address != null">Address=#{Address},</if>
 			<if test="Phone != null">Phone=#{Phone},</if>
 			<if test="Img != null">Img=#{Img},</if>
+			<if test="Priority != null">Priority=#{Priority},</if>
 			<if test="Advice != null">Advice=#{Advice},</if>
+			<if test="Area_ID != null">Area_ID=#{Area_ID},</if>
+			<if test="PersonInfo_ID != null">PersonInfo_ID=#{PersonInfo_ID},</if>
+			<if test="ShopType_ID != null">ShopType_ID=#{ShopType_ID},</if>
 			<if test="LastModifyTime != null">LastModifyTime=#{LastModifyTime}</if>
 		</set>
 		<!-- 条件：数据库字段ID=#{传进来的实体的成员变量ID} -->
