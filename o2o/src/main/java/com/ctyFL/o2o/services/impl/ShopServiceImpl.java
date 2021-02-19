@@ -74,6 +74,50 @@ public class ShopServiceImpl implements ShopService {
 	}
 
 	/**
+	 * tempShop：修改后的Shop
+	 * shopInputStream：若有传入新图片，则更新图片，若存在旧图片，将旧图片在文件中删除
+	 * fileName：新图片的文件名
+	 */
+	@Override
+	public ShopExecution updateShop(Shop tempShop, InputStream shopInputStream, String fileName)
+			throws ShopOperationException {
+		if(tempShop == null || tempShop.getID() == null) {
+			return new ShopExecution(ShopStateEnum.NULL_SHOP);
+		}
+		try {
+			return updateShopAndImg(tempShop, shopInputStream, fileName);
+		} catch (Exception e) {
+			throw new ShopOperationException("updateShop error：" + e.getMessage());
+		}
+	}
+
+	@Override
+	public Shop getShopByShopId(long shopId) {
+		return shopDao.getShopById(shopId);
+	}
+
+	private ShopExecution updateShopAndImg(Shop tempShop, InputStream shopInputStream, String fileName) throws Exception {
+		//1.若有传入新图片，则更新新图片，并将旧图片在文件中删除
+		if(shopInputStream != null && fileName != null && !fileName.isEmpty()) {
+			Shop oldShop = shopDao.getShopById(tempShop.getID());
+			//若存在旧图片，则将旧图片在文件中删除
+			if(oldShop.getImg() != null && !oldShop.getImg().isEmpty()) {
+				ImageUtil.deleteFileOrDirectory(oldShop.getImg());
+			}
+			//更新新图片
+			addShop(tempShop, shopInputStream, fileName);
+		}
+		//2.更新店铺
+		tempShop.setLastModifyTime(new Date());
+		int effectedNum = shopDao.updateShop(tempShop);
+		if(effectedNum <= 0) {
+			return new ShopExecution(ShopStateEnum.INNER_ERROR);
+		}
+		tempShop = shopDao.getShopById(tempShop.getID());
+		return new ShopExecution(ShopStateEnum.SUCCESS, tempShop); 
+	}
+	
+	/**
 	 * 存储shop图片的相对路径
 	 * @param shop
 	 * @param shopImg
@@ -84,5 +128,5 @@ public class ShopServiceImpl implements ShopService {
 		String shopImgPath = ImageUtil.generateThumbnail(shopImgInputStream, fileName, dest);
 		shop.setImg(shopImgPath);
 	}
-
+	
 }

@@ -44,6 +44,7 @@ public class ShopDaoTest extends BaseTest {
 	}
 	
 	@Test
+	@Ignore
 	public void testUpdateShop() {
 		Shop shop = new Shop();
 		//查询数据得知测试Shop数据的ID=1
@@ -58,6 +59,13 @@ public class ShopDaoTest extends BaseTest {
 		int updateRows = shopDao.updateShop(shop);
 		//成功更新条数是否为1
 		assertEquals(1, updateRows);
+	}
+	
+	@Test
+	public void testGetShopById() {
+		long shopId = 3;
+		Shop shop = shopDao.getShopById(shopId);
+		System.out.println(shop.getName() + "," + shop.getAddress() + "...");
 	}
 	
 }
