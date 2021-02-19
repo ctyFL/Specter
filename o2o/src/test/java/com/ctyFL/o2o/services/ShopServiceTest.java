@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.Date;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.ctyFL.o2o.BaseTest;
@@ -26,6 +27,7 @@ public class ShopServiceTest extends BaseTest {
 	ShopService shopService;
 	
 	@Test
+	@Ignore
 	public void addShopTest() throws ShopOperationException, FileNotFoundException {
 		Shop shop = new Shop();
 		shop.setName("测试商铺2");
@@ -52,6 +54,18 @@ public class ShopServiceTest extends BaseTest {
 		
 		//判断添加商品并添加图片后，返回状态值是否是审核中
 		assertEquals(ShopStateEnum.CHECK.getState(), execution.getState());
+	}
+	
+	@Test
+	public void testUpdateShop() throws ShopOperationException, FileNotFoundException {
+		//更新ID为3的Shop
+		Shop tempShop = shopService.getShopByShopId(3);
+		String newShopName = tempShop.getName() + "（修改）";
+		tempShop.setName(newShopName);
+		File newShopImg = new File("E:\\gitHubDev\\image\\newtestimg.png");
+		InputStream is = new FileInputStream(newShopImg);
+		ShopExecution shopExecution = shopService.updateShop(tempShop, is, newShopImg.getName());
+		System.out.println("新图片的路径：" + shopExecution.getShop().getImg());
 	}
 	
 }

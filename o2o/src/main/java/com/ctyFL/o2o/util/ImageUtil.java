@@ -112,5 +112,25 @@ public class ImageUtil {
 			dirPath.mkdirs();
 		}
 	}
+	
+	/**
+	 * 若storePath是目录路径（相对路径），则删除目录下的所有文件及删除该目录
+	 * 若storePath是文件路径（相对路径），则删除该文件
+	 * @param storePath
+	 */
+	public static void deleteFileOrDirectory(String storePath) {
+		//文件或目录的全路径：PathUtil.getImgBasePath() + storePath
+		File fileOrDirectory = new File(PathUtil.getImgBasePath() + storePath);
+		if(fileOrDirectory.exists()) {
+			if(fileOrDirectory.isDirectory()) {//若是目录，则删除目录下的所有文件
+				File files[] = fileOrDirectory.listFiles();
+				for(int i=0; i<files.length; i++) {
+					files[i].delete();
+				}
+			}
+			//删除文件或目录
+			fileOrDirectory.delete();
+		}
+	}
 
 }

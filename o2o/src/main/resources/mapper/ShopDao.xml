@@ -48,4 +48,30 @@
 		WHERE ID=#{ID}
 	</update>
 	
+	<!-- 定义一个resultMap（返回的结果集）去接收返回值：接收查询返回的Shop
+		 type即要映射的对应的实体类，这样查询返回的结果就可以转成Shop类型了 -->
+	<resultMap type="com.ctyFL.o2o.entity.Shop" id="shopMap">
+		<!-- id：定义主键 column：数据库表字段名 property：对应的实体类的成员变量名 -->
+		<id column="ID" property="ID"/>
+		<!-- result返回的结果集的每个元素，若是符合元素（对应实体类的成员变量为一个类时）则用association -->
+		<result column="Name" property="Name"/>
+		<result column="Description" property="Description"/>
+		<result column="Address" property="Address"/>
+		<result column="Phone" property="Phone"/>
+		<result column="Img" property="Img"/>
+		<result column="Priority" property="Priority"/>
+		<result column="DataCreationDate" property="DataCreationDate"/>
+		<result column="LastModifyTime" property="LastModifyTime"/>
+		<result column="Status" property="Status"/>
+		<result column="Advice" property="Advice"/>
+		<result column="Area_ID" property="Area_ID"/>
+		<result column="PersonInfo_ID" property="PersonInfo_ID"/>
+		<result column="ShopType_ID" property="ShopType_ID"/>
+	</resultMap>
+	
+	<!-- 根据ShopId返回Shop：resultMap即上面定义的返回结果集的id，parameterType为定义该查询传入的参数的类型 -->
+	<select id="getShopById" resultMap="shopMap" parameterType="Long">
+		SELECT * FROM Shop WHERE ID=#{ID}
+	</select>
+	
 </mapper>
